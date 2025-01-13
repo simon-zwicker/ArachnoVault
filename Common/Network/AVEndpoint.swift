@@ -50,6 +50,7 @@ extension AVEndpoint: Endpoint {
 		switch self {
 		case let .register(draft): params = draft.dictionary
 		case let .authentication(draft): params = draft.dictionary
+		case .speciesFetch: params["sort"] = "name"
 		default: return params
 		}
 		return params

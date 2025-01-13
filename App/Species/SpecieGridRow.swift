@@ -37,7 +37,7 @@ struct SpecieGridRow: View {
 				)
 				.position(x: 25, y: 25)
 		}
-		.frame(width: 200, height: 200)
+		.frame(minWidth: 100, maxWidth: 200, minHeight: 100, maxHeight: 200)
 		.clipShape(.rect(cornerRadius: 15))
 	}
 }

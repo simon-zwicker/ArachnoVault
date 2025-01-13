@@ -21,7 +21,17 @@ struct SpeciesAdapter: AdapterProtocol {
 				collection: raw.collectionId,
 				id: raw.id,
 				filename: raw.image
-			)
+			),
+			tempRangeDay: raw.tempRangeDay,
+			tempRangeNight: raw.tempRangeNight,
+			humidity: raw.humidity,
+			origin: raw.origin,
+			conservationStatus: raw.conservationStatus,
+			lifespanMale: raw.lifespanMale,
+			lifespanFemale: raw.lifespanFemale,
+			bodylengthMale: raw.bodylengthMale,
+			bodylengthFemale: raw.bodylengthFemale,
+			behavior: raw.behavior
 		)
 	}
 }
