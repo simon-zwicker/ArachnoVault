@@ -26,18 +26,14 @@ struct SpecieGridRow: View {
 				.padding(.vertical, 10)
 				.background(.white.opacity(0.8))
 
-			Image(systemName: specie.lifestyle.icon)
-				.foregroundStyle(.white)
-				.padding(8)
-				.background(
-					Circle()
-						.fill(specie.lifestyle.color)
-						.stroke(.white, lineWidth: 2)
-						.shadow(radius: 3)
-				)
+			specie.lifestyle.image
 				.position(x: 25, y: 25)
 		}
 		.frame(minWidth: 100, maxWidth: 200, minHeight: 100, maxHeight: 200)
 		.clipShape(.rect(cornerRadius: 15))
 	}
+}
+
+#Preview {
+	SpecieGridRow(specie: Specie.preview)
 }

@@ -13,7 +13,11 @@ final class SpeciesModel: ObservableObject {
 	@Published var searchText: String = ""
 	@Published var items: [Specie] = []
 	@Published var detail: Specie?
-	
+	@Published var specieDraft: SpecieDraft = .defaultValue
+	@Published var showSpecieAdd: Bool = false
+
+	private var created: [SpecieNewJSON] = []
+
 	let columns = [
 		GridItem(.adaptive(minimum: 150)),
 		GridItem(.adaptive(minimum: 150))
@@ -27,7 +31,18 @@ final class SpeciesModel: ObservableObject {
 		}
 	}
 
+	func showAddSpecies() {
+		showSpecieAdd = true
+	}
+
+	func addSpecie() {
+		Task {
+			await service.create(specieDraft)
+		}
+	}
+
 	private func fetch() async {
-		items = await service.fetch()
+		self.items = await service.fetch()
+		self.created = await service.fetchCreated()
 	}
 }

@@ -38,6 +38,19 @@ struct SpeciesScreen: View {
 			.sheet(item: $model.detail) { specie in
 				SpecieDetail(specie: specie)
 			}
+			.sheet(isPresented: $model.showSpecieAdd) {
+				SpecieAdd()
+					.presentationDetents([.medium])
+			}
+			.toolbar {
+				ToolbarItem(placement: .topBarTrailing) {
+					Text("Eintragung anfordern")
+						.button {
+							model.addSpecie()
+						}
+				}
+			}
+			.environmentObject(model)
 		}
 	}
 }

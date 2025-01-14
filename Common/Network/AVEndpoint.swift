@@ -19,6 +19,8 @@ enum AVEndpoint {
 
 	/// Species
 	case speciesFetch
+	case specieCreate(SpecieDraft)
+	case specieCreated
 }
 
 extension AVEndpoint: Endpoint {
@@ -29,12 +31,13 @@ extension AVEndpoint: Endpoint {
 		case .register: "/users/records"
 		case .authentication: "/users/auth-with-password"
 		case .speciesFetch: "/species/records"
+		case .specieCreated, .specieCreate: "/specieNew/records"
 		}
 	}
 
 	var method: MammutMethod {
 		switch self {
-		case .register, .authentication: .post
+		case .register, .authentication, .specieCreate: .post
 		default: .get
 		}
 	}
@@ -50,7 +53,8 @@ extension AVEndpoint: Endpoint {
 		switch self {
 		case let .register(draft): params = draft.dictionary
 		case let .authentication(draft): params = draft.dictionary
-		case .speciesFetch: params["sort"] = "name"
+		case .speciesFetch, .specieCreated: params["sort"] = "name"
+		case let .specieCreate(draft): params = draft.dictionary
 		default: return params
 		}
 		return params
@@ -60,7 +64,7 @@ extension AVEndpoint: Endpoint {
 
 	var encoding: Encoding {
 		switch self {
-		case .register, .authentication: .json
+		case .register, .authentication, .specieCreate: .json
 		default: .url
 		}
 	}

@@ -18,4 +18,22 @@ struct SpeciesService {
 			return []
 		}
 	}
+
+	func fetchCreated() async -> [SpecieNewJSON] {
+		do {
+			let data = try await Network.request(ArrayJSON<SpecieNewJSON>.self, endpoint: .specieCreated)
+			return data.items
+		} catch let error as LocalizedError {
+			print(error.complete)
+			return []
+		}
+	}
+
+	func create(_ draft: SpecieDraft) async {
+		do {
+			_ = try await Network.request(SpecieNewJSON.self, endpoint: .specieCreate(draft))
+		} catch let error as LocalizedError {
+			print(error.complete)
+		}
+	}
 }

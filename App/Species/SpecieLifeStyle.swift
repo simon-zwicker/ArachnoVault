@@ -12,6 +12,14 @@ enum SpecieLifeStyle: Int, CaseIterable, Codable {
 	case tree
 	case burrow
 
+	var title: String {
+		switch self {
+		case .ground: "Ground"
+		case .tree: "Tree"
+		case .burrow: "Burrow"
+		}
+	}
+
 	var icon: String {
 		switch self {
 		case .ground: "camera.macro"
@@ -26,5 +34,18 @@ enum SpecieLifeStyle: Int, CaseIterable, Codable {
 		case .tree: .green.darker()
 		case .burrow: .brown.darker(by: 40)
 		}
+	}
+
+	@ViewBuilder
+	var image: some View {
+		Image(systemName: icon)
+			.foregroundStyle(.white)
+			.padding(8)
+			.background(
+				Circle()
+					.fill(color)
+					.stroke(.white, lineWidth: 2)
+					.shadow(radius: 3)
+			)
 	}
 }
